@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>ビルクリーニング技能士2級 学科対策</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#16343A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ビルクリ学科">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#16343A;
+    --navy2:#1F4B52;
+    --amber:#E2A63B;
+    --amber-dark:#B87F1E;
+    --bg:#EEF2F0;
+    --card:#FFFFFF;
+    --text:#1C2B2E;
+    --text-soft:#5A6E70;
+    --line:#DCE3E0;
+    --good:#2E7D5B;
+    --good-bg:#E4F3EB;
+    --bad:#B84436;
+    --bad-bg:#FBEAE7;
+    --stamp:#B23A2E;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Noto Sans JP',system-ui,sans-serif;
+    min-height:100vh;
+    padding-bottom:24px;
+  }
+  #app{max-width:640px;margin:0 auto;min-height:100vh;background:var(--bg);}
+
+  /* ---------- header ---------- */
+  .topbar{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
+    color:#fff;
+    padding:18px 18px 20px;
+    position:sticky;top:0;z-index:20;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar-row{display:flex;align-items:center;gap:10px;}
+  .backbtn{
+    background:rgba(255,255,255,.14);
+    border:none;color:#fff;width:34px;height:34px;border-radius:9px;
+    font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;
+    flex-shrink:0;
+  }
+  .topbar h1{font-size:16px;margin:0;font-weight:700;line-height:1.35;flex:1;}
+  .topbar .eyebrow{
+    font-size:10.5px;letter-spacing:.14em;color:var(--amber);font-weight:700;
+    text-transform:uppercase;margin-bottom:4px;display:block;
+  }
+
+  .home-header{padding:22px 20px 18px;}
+  .home-header .badge-code{
+    display:inline-block;font-size:10.5px;letter-spacing:.12em;color:var(--amber);
+    border:1px solid rgba(226,166,59,.5);padding:3px 9px;border-radius:20px;margin-bottom:10px;
+  }
+  .home-header h1{font-family:'Noto Serif JP',serif;font-size:23px;line-height:1.4;margin:0 0 6px;font-weight:700;}
+  .home-header p{font-size:12.5px;color:rgba(255,255,255,.72);margin:0;line-height:1.6;}
+
+  .progress-wrap{padding:16px 20px 4px;}
+  .progress-card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:14px;padding:14px 16px;
+  }
+  .progress-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+  .progress-top .num{font-size:22px;font-weight:900;color:var(--amber);}
+  .progress-top .lbl{font-size:11px;color:rgba(255,255,255,.75);}
+  .bar-track{height:8px;background:rgba(255,255,255,.15);border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--amber-dark),var(--amber));border-radius:6px;transition:width .4s ease;}
+
+  /* ---------- unit list ---------- */
+  .unit-list{padding:16px 16px 8px;display:flex;flex-direction:column;gap:10px;}
+  .unit-card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;
+    transition:transform .1s ease, box-shadow .15s ease;
+  }
+  .unit-card:active{transform:scale(.98);}
+  .unit-num{
+    width:38px;height:38px;border-radius:10px;background:var(--navy);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0;
+  }
+  .unit-card.done .unit-num{background:var(--good);}
+  .unit-body{flex:1;min-width:0;}
+  .unit-title{font-size:14.5px;font-weight:700;margin:0 0 4px;line-height:1.4;}
+  .unit-meta{display:flex;gap:6px;flex-wrap:wrap;}
+  .tag{font-size:10.5px;padding:2px 8px;border-radius:20px;font-weight:700;}
+  .tag.read{background:#E5EEF0;color:var(--navy2);}
+  .tag.read.on{background:var(--good-bg);color:var(--good);}
+  .tag.score{background:#F3EEE0;color:var(--amber-dark);}
+  .tag.score.pass{background:var(--good-bg);color:var(--good);}
+  .tag.score.na{background:#EFEFEF;color:var(--text-soft);}
+  .chev{color:var(--text-soft);font-size:18px;flex-shrink:0;}
+
+  .footnote{padding:14px 26px 30px;font-size:11px;color:var(--text-soft);line-height:1.7;text-align:center;}
+
+  /* ---------- unit detail ---------- */
+  .tabs{display:flex;background:rgba(255,255,255,.1);border-radius:11px;padding:3px;margin-top:14px;}
+  .tab{
+    flex:1;text-align:center;padding:9px 0;border-radius:9px;font-size:13px;font-weight:700;
+    color:rgba(255,255,255,.75);cursor:pointer;border:none;background:transparent;
+  }
+  .tab.active{background:var(--amber);color:var(--navy);}
+
+  .content-pane{padding:18px 18px 40px;}
+
+  /* TTS bar */
+  .tts-bar{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:12px 14px;margin-bottom:16px;
+  }
+  .tts-row1{display:flex;align-items:center;gap:10px;}
+  .tts-playbtn{
+    width:44px;height:44px;border-radius:50%;border:none;background:var(--navy);color:#fff;
+    font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;
+  }
+  .tts-playbtn.playing{background:var(--stamp);}
+  .tts-info{flex:1;min-width:0;}
+  .tts-label{font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+  .tts-sub{font-size:10.5px;color:var(--text-soft);}
+  .tts-stop{
+    width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text-soft);
+    font-size:13px;cursor:pointer;flex-shrink:0;
+  }
+  .rate-row{display:flex;gap:6px;margin-top:10px;}
+  .rate-btn{
+    flex:1;padding:6px 0;border-radius:8px;border:1px solid var(--line);background:#fff;
+    font-size:11.5px;color:var(--text-soft);cursor:pointer;font-weight:700;
+  }
+  .rate-btn.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+
+  .textbook{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:22px 20px;
+  }
+  .textbook h2{
+    font-family:'Noto Serif JP',serif;font-size:18px;color:var(--navy);margin:0 0 14px;
+    padding-bottom:10px;border-bottom:2px solid var(--amber);line-height:1.5;
+  }
+  .textbook .section-label{font-family:'Noto Serif JP',serif;font-size:15px;font-weight:700;color:var(--navy2);margin:20px 0 8px;}
+  .textbook .section-label:first-of-type{margin-top:0;}
+  .textbook p{font-size:14.5px;line-height:2;color:var(--text);margin:0 0 4px;}
+  .textbook .reading-p{transition:background .2s ease;border-radius:4px;}
+  .textbook .reading-p.active{background:#FCF3DC;}
+  .keyword{color:var(--amber-dark);font-weight:700;}
+
+  .mark-read-btn{
+    display:block;width:100%;margin-top:18px;padding:13px;border-radius:12px;border:none;
+    background:var(--navy);color:#fff;font-weight:700;font-size:14px;cursor:pointer;
+  }
+  .mark-read-btn.done{background:var(--good);}
+
+  /* quiz */
+  .quiz-progress{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .quiz-progress .qnum{font-size:12.5px;font-weight:700;color:var(--navy2);}
+  .quiz-dots{display:flex;gap:4px;}
+  .qdot{width:7px;height:7px;border-radius:50%;background:var(--line);}
+  .qdot.cur{background:var(--amber);}
+  .qdot.ok{background:var(--good);}
+  .qdot.ng{background:var(--bad);}
+
+  .qcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 18px;}
+  .qtype{font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--amber-dark);margin-bottom:8px;}
+  .qtext{font-size:15.5px;font-weight:700;line-height:1.7;margin:0 0 16px;}
+  .opts{display:flex;flex-direction:column;gap:9px;}
+  .opt{
+    text-align:left;padding:13px 14px;border-radius:11px;border:1.5px solid var(--line);background:#fff;
+    font-size:14px;color:var(--text);cursor:pointer;line-height:1.5;
+  }
+  .opt:active{transform:scale(.99);}
+  .opt.correct{background:var(--good-bg);border-color:var(--good);color:var(--good);font-weight:700;}
+  .opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad);font-weight:700;}
+  .opt.dim{opacity:.5;}
+  .opt[disabled]{cursor:default;}
+
+  .tf-row{display:flex;gap:10px;}
+  .tf-row .opt{flex:1;text-align:center;font-weight:700;font-size:16px;}
+
+  .explain{
+    margin-top:16px;padding:13px 14px;border-radius:11px;font-size:13px;line-height:1.75;
+    background:#F4F6F5;color:var(--text-soft);border-left:4px solid var(--navy2);
+  }
+  .explain.ok{border-left-color:var(--good);}
+  .explain.ng{border-left-color:var(--bad);}
+
+  .next-btn{
+    display:block;width:100%;margin-top:16px;padding:13px;border-radius:12px;border:none;
+    background:var(--amber);color:var(--navy);font-weight:900;font-size:14.5px;cursor:pointer;
+  }
+  .next-btn:disabled{background:#E6E6E6;color:#AAA;}
+
+  /* results */
+  .result-wrap{text-align:center;padding:10px 6px 4px;}
+  .stamp{
+    width:118px;height:118px;border-radius:50%;border:4px solid var(--stamp);color:var(--stamp);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;margin:6px auto 18px;
+    transform:rotate(-8deg);
+  }
+  .stamp .big{font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;}
+  .stamp .small{font-size:10px;letter-spacing:.15em;margin-top:2px;}
+  .stamp.fail{border-color:var(--text-soft);color:var(--text-soft);}
+  .result-score{font-size:34px;font-weight:900;color:var(--navy);margin:0 0 4px;}
+  .result-sub{font-size:12.5px;color:var(--text-soft);margin:0 0 22px;}
+  .result-btns{display:flex;flex-direction:column;gap:10px;}
+  .btn-primary{
+    padding:14px;border-radius:12px;border:none;background:var(--navy);color:#fff;font-weight:700;
+    font-size:14.5px;cursor:pointer;
+  }
+  .btn-secondary{
+    padding:14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--text);
+    font-weight:700;font-size:14.5px;cursor:pointer;
+  }
+
+  ::selection{background:#FCE3AC;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* ============================================================
+   データ：ビルクリーニング技能士2級 学科試験対策 教材
+   ============================================================ */
+const UNITS = [
+{
+  id:1,
+  title:"清掃の基礎知識",
+  eyebrow:"UNIT 01",
+  sections:[
+    {h:"清掃の目的", p:"ビルクリーニングの目的は、単に見た目をきれいにすることだけではありません。建物利用者の健康を守り、快適な環境を維持し、建物や設備の寿命を延ばすことが本来の目的です。汚れを放置すると、カビやダニの発生、感染症のリスク、建材の劣化につながります。"},
+    {h:"汚れの3分類", p:"汚れは性質によって大きく3つに分類されます。水に溶ける「水溶性の汚れ」（砂糖、塩分、手垢の一部など）、油に溶ける「油溶性の汚れ」（食用油、皮脂、機械油など）、どちらにも溶けにくい「不溶性の汚れ」（土砂、金属粉、水あかなど）です。汚れの種類によって使う洗剤や清掃方法を変える必要があります。"},
+    {h:"清掃の4つの基本作業", p:"清掃は目的別に「日常清掃」「定期清掃」「特別清掃」「予防清掃」の4つに分けて考えます。日常清掃は毎日行う軽い汚れの除去、定期清掃は一定周期でワックス除去や床磨きなど本格的に行うもの、特別清掃は災害後や特殊な汚損への対応、予防清掃はマットの設置など汚れの侵入自体を防ぐ工夫を指します。"},
+    {h:"作業の順序の原則", p:"清掃作業には「上から下へ」「奥から手前へ」「乾いた作業から湿った作業へ」という基本原則があります。天井や什器のほこりを払ってから床を清掃する、部屋の奥から出入口に向かって作業することで、一度きれいにした場所を再び汚さずに済みます。"}
+  ],
+  quiz:[
+    {type:"tf", q:"清掃の目的は、見た目を美しくすることだけである。", answer:false, explain:"清掃の目的は美観だけでなく、利用者の健康保持、快適性の維持、建材・設備の保全（長持ちさせること）も含まれます。"},
+    {type:"tf", q:"皮脂や食用油による汚れは、水溶性の汚れに分類される。", answer:false, explain:"皮脂や食用油は油に溶けやすい「油溶性の汚れ」に分類されます。水溶性の汚れは砂糖や塩分などです。"},
+    {type:"choice", q:"マットを出入口に敷いて、外からの土砂やほこりの侵入そのものを防ぐ清掃の考え方を何というか。", options:["日常清掃","予防清掃","特別清掃","定期清掃"], answer:1, explain:"汚れが室内に侵入すること自体を防ぐ工夫を予防清掃といいます。マットや吸塵マットの設置が代表例です。"},
+    {type:"choice", q:"一定の周期でワックスの除去や床磨きなど本格的な作業を行う清掃を何というか。", options:["日常清掃","予防清掃","定期清掃","特別清掃"], answer:2, explain:"日常的には落としきれない汚れを、一定周期で本格的に処理するのが定期清掃です。"},
+    {type:"tf", q:"清掃作業は「下から上へ」、「手前から奥へ」進めるのが基本原則である。", answer:false, explain:"逆です。「上から下へ」「奥から手前へ」が基本原則です。順序を誤ると一度清掃した場所を再び汚してしまいます。"},
+    {type:"choice", q:"土砂や金属粉のように、水にも油にも溶けにくい汚れを何と呼ぶか。", options:["水溶性の汚れ","油溶性の汚れ","不溶性の汚れ","揮発性の汚れ"], answer:2, explain:"水にも油にも溶けにくい汚れは不溶性の汚れと呼ばれ、主に物理的な力（ブラッシングや吸引）で除去します。"}
+  ]
+},
+{
+  id:2,
+  title:"建築物と床材の知識",
+  eyebrow:"UNIT 02",
+  sections:[
+    {h:"床材の3分類", p:"床材は清掃の観点から「弾性床材」「繊維系床材」「硬性床材」の3つに大別されます。弾性床材はビニル系タイルやゴム系床材などクッション性があるもの、繊維系床材はカーペットなど繊維でできたもの、硬性床材は大理石・テラゾ・花こう岩などの石材や陶磁器タイルのように硬く傷つきにくいものを指します。"},
+    {h:"弾性床材の特徴", p:"弾性床材（Pタイル、長尺塩ビシートなど）は施工しやすく安価なため事務所やオフィスで広く使われますが、酸やアルカリ、溶剤に弱い製品もあり、洗剤の選定を誤ると変色や劣化を招きます。多くの場合、樹脂ワックスで保護膜をつくり、定期的に洗浄・剥離・再塗布を行います。"},
+    {h:"硬性床材の特徴", p:"大理石やテラゾなどの石材は美観に優れますが、酸に弱く、酸性の洗剤や薬剤が付着すると表面が溶けて艶を失う「エッチング」という現象が起こります。石材の清掃には中性洗剤を用い、酸性・アルカリ性の強い薬剤は避けるのが原則です。"},
+    {h:"繊維系床材（カーペット）の特徴", p:"カーペットは保温性・防音性・クッション性に優れる一方、ほこりや土砂を内部に溜め込みやすく、湿気を含むとカビやダニの温床になりやすい特徴があります。日常はこまめな真空掃除機がけが最も重要で、定期的にシャンプークリーニングやエクストラクション（洗浄液の噴射・吸引）による洗浄を行います。"}
+  ],
+  quiz:[
+    {type:"choice", q:"ビニル系タイルやゴム系床材など、クッション性のある床材を何と呼ぶか。", options:["硬性床材","弾性床材","繊維系床材","複合床材"], answer:1, explain:"クッション性を持つ床材は弾性床材と呼ばれ、Pタイルや長尺塩ビシートが代表例です。"},
+    {type:"tf", q:"大理石などの石材床に酸性の洗剤が付着すると、表面が溶けて艶を失うことがある。", answer:true, explain:"この現象はエッチングと呼ばれます。石材の清掃には中性洗剤を用いるのが原則です。"},
+    {type:"choice", q:"カーペットの日常清掃で最も重要とされる作業はどれか。", options:["水拭き","真空掃除機によるほこり・土砂の除去","ワックスの塗布","酸性洗剤による漂白"], answer:1, explain:"カーペットは内部に汚れを溜め込みやすいため、こまめな真空掃除機がけが日常清掃の基本です。"},
+    {type:"tf", q:"石材や陶磁器タイルのように硬く傷つきにくい床材を弾性床材という。", answer:false, explain:"石材やタイルのように硬い床材は「硬性床材」です。「弾性床材」はクッション性のある床材を指します。"},
+    {type:"choice", q:"カーペットに洗浄液を噴射し、直後に汚れごと吸引する定期的な洗浄方法を何というか。", options:["ドライバフ法","エクストラクション法","スプレーバフ法","スクラビング法"], answer:1, explain:"洗浄液の噴射と吸引を同時に行う方法をエクストラクション（噴射吸引式洗浄）といいます。"},
+    {type:"tf", q:"カーペットは湿気を含むとカビやダニが発生しやすい。", answer:true, explain:"繊維の奥に湿気やほこりを溜め込みやすいため、湿った状態が続くとカビ・ダニの温床になります。洗浄後は十分な乾燥が必要です。"}
+  ]
+},
+{
+  id:3,
+  title:"洗剤・薬剤の知識",
+  eyebrow:"UNIT 03",
+  sections:[
+    {h:"pHによる洗剤の分類", p:"洗剤や薬剤はpH（水素イオン指数）によって酸性・中性・アルカリ性に分類されます。pH7が中性で、数値が小さいほど酸性が強く、大きいほどアルカリ性が強くなります。一般用洗剤の多くは中性〜弱アルカリ性で、油汚れにはアルカリ性、水あか・尿石など無機質の汚れには酸性の薬剤が有効とされます。"},
+    {h:"界面活性剤のはたらき", p:"洗剤の主成分である界面活性剤は、水になじむ部分（親水基）と油になじむ部分（親油基）の両方を持ち、水と油のように本来混ざらないもの同士を混ざりやすくします。この働きにより、繊維や床面に付着した油汚れを浮かせて水中に分散させ、洗い流すことができます。"},
+    {h:"代表的な薬剤の種類", p:"清掃現場で使う薬剤には、一般用洗剤のほか、床のワックス被膜を溶かして除去する「剥離剤（強アルカリ性）」、水あかや尿石を落とす「酸性洗剤」、除菌・消臭を目的とした「消毒剤」などがあります。剥離剤や酸性の強い薬剤は皮膚や素材を傷めやすいため、取り扱いに注意が必要です。"},
+    {h:"薬剤取り扱いの注意点", p:"性質の異なる薬剤を混ぜると有毒ガスが発生することがあり、特に酸性の薬剤と塩素系の薬剤を混ぜるのは大変危険です。薬剤は必ず用途表示を確認し、換気を確保したうえで、ゴム手袋やゴーグルなど適切な保護具を着用して使用します。"}
+  ],
+  quiz:[
+    {type:"choice", q:"pHが7より小さい薬剤は何性か。", options:["アルカリ性","中性","酸性","中性からアルカリ性の間"], answer:2, explain:"pH7が中性の基準で、数値が7より小さいほど酸性が強くなります。"},
+    {type:"tf", q:"油汚れの除去には、一般にアルカリ性の洗剤が有効とされる。", answer:true, explain:"油汚れは酸性の汚れであるため、アルカリ性の洗剤で中和・分解して落とすのが効果的です。"},
+    {type:"choice", q:"水と油のように混ざりにくいもの同士をなじませ、汚れを浮かせて落とす洗剤の主成分は何か。", options:["漂白剤","界面活性剤","消毒用アルコール","研磨剤"], answer:1, explain:"界面活性剤は親水基と親油基を併せ持ち、水と油をなじませて汚れを浮かせる働きをします。"},
+    {type:"tf", q:"床のワックス被膜を溶かして除去する薬剤を剥離剤といい、一般に強アルカリ性である。", answer:true, explain:"剥離剤は強アルカリ性で、樹脂ワックスの被膜を溶解・除去するために使われます。取り扱いには保護具が必要です。"},
+    {type:"choice", q:"水あかや尿石などの無機質の汚れを落とすのに適した薬剤の性質はどれか。", options:["中性","酸性","強アルカリ性","中性洗剤のみ"], answer:1, explain:"水あかや尿石はアルカリ性の性質を持つ汚れのため、酸性の薬剤で中和して除去します。"},
+    {type:"tf", q:"酸性の薬剤と塩素系の薬剤を混ぜても安全上の問題はない。", answer:false, explain:"酸性の薬剤と塩素系の薬剤を混ぜると有毒な塩素ガスが発生する危険があり、絶対に混ぜてはいけません。"}
+  ]
+},
+{
+  id:4,
+  title:"清掃用機械・器具の知識",
+  eyebrow:"UNIT 04",
+  sections:[
+    {h:"真空掃除機（バキュームクリーナー）", p:"真空掃除機は空気を吸引してほこりやごみを取り除く機械で、乾いた汚れの除去に用いる「乾式」と、水分を含む汚れも吸える「湿式（ウェット対応）」があります。カーペットの日常清掃や、剥離作業後の汚水回収などにも使われます。"},
+    {h:"床みがき機（ポリッシャー）", p:"ポリッシャーはブラシやパッドを回転させて床面を洗浄・研磨する機械です。回転数によって低速機（洗浄・ワックスがけ向き）と高速機（艶出し・バフ仕上げ向き）に分けられ、用途に応じてパッドの種類（研磨用・洗浄用・艶出し用など）を使い分けます。"},
+    {h:"パッド・モップの種類", p:"ポリッシャー用パッドは色によって用途が異なり、一般に黒や茶は剥離・強い研磨用、赤は洗浄用、白やピンクは艶出し用として使い分けられます。モップにはほこりを絡め取る「ダストモップ」と、水や洗剤液で拭き上げる「湿式モップ（ウェットモップ）」があります。"},
+    {h:"噴射吸引式機械（エクストラクター）", p:"エクストラクターは洗浄液をカーペットや床面に噴射し、直後に汚水ごと吸引回収する機械です。カーペットの定期的な洗浄に用いられ、洗浄後の乾燥時間を確保することがカビ防止の観点からも重要です。"}
+  ],
+  quiz:[
+    {type:"choice", q:"回転数が高く、艶出しやバフ仕上げに適したポリッシャーはどちらか。", options:["低速機","高速機","湿式掃除機","エクストラクター"], answer:1, explain:"高速機は艶出し・バフ仕上げに向き、低速機は洗浄やワックスがけに向いています。"},
+    {type:"tf", q:"ポリッシャー用パッドは色によって用途の目安が異なり、黒や茶は強い研磨・剥離用とされることが多い。", answer:true, explain:"一般に色が濃いパッドほど研磨力が強く、剥離や強力洗浄に用いられます。白やピンクは艶出し用です。"},
+    {type:"choice", q:"洗浄液を噴射し、直後に汚水を吸引回収する機械を何というか。", options:["ポリッシャー","エクストラクター","真空掃除機（乾式）","ダストモップ"], answer:1, explain:"噴射と吸引を同時に行う機械をエクストラクターといい、カーペットの定期洗浄に使われます。"},
+    {type:"tf", q:"乾式の真空掃除機は、水分を含んだ汚水の吸引にもそのまま使用してよい。", answer:false, explain:"乾式の真空掃除機は水分の吸引に対応しておらず、故障や感電の危険があります。水分の吸引には湿式（ウェット対応）の機械を使用します。"},
+    {type:"choice", q:"ほこりを絡め取って除去する、日常清掃で使うモップを何というか。", options:["湿式モップ","ダストモップ","スクイジー","デッキブラシ"], answer:1, explain:"ダストモップは乾いたほこりを絡め取るためのモップで、日常清掃の基本用具です。"},
+    {type:"tf", q:"エクストラクターでカーペットを洗浄した後は、十分な乾燥時間を確保することが重要である。", answer:true, explain:"乾燥が不十分だとカビやダニの発生、悪臭の原因になるため、洗浄後の乾燥管理が重要です。"}
+  ]
+},
+{
+  id:5,
+  title:"床清掃作業法",
+  eyebrow:"UNIT 05",
+  sections:[
+    {h:"日常清掃の基本手順", p:"弾性床材や硬性床材の日常清掃は、まずダストモップやほうきで土砂・ほこりを取り除き、その後必要に応じて湿式モップで水拭きを行います。土砂を残したまま湿式モップをかけると、逆に床を傷つけてしまうため、乾いた汚れを先に除去する順序が重要です。"},
+    {h:"定期清掃（洗浄・ワックス仕上げ）の流れ", p:"弾性床材の定期清掃は、一般に「洗浄剤の塗布→ポリッシャーによる洗浄→汚水の回収→すすぎ→乾燥→ワックスの塗布」という流れで行います。ワックスは薄く均一に複数回重ね塗りすることで、艶と耐久性のある被膜を作ることができます。"},
+    {h:"剥離作業", p:"古くなったワックス被膜は黒ずみや剥がれの原因になるため、定期的に剥離剤を使って完全に除去し、新しくワックスを塗り直します。剥離作業では剥離剤を床面にしみ込ませて被膜を軟化させ、ポリッシャーと真空掃除機（湿式）で汚水ごと除去したのち、十分にすすぎ洗いをしてから乾燥させます。"},
+    {h:"石材床・カーペットの取り扱い上の注意", p:"石材床には酸性の洗剤や剥離剤を使用しないことが原則です。カーペットは洗浄後の過度な湿りがカビの原因になるため、送風などで速やかに乾燥させます。床材の性質を理解したうえで作業法と薬剤を選ぶことが、事故や損傷を防ぐ基本です。"}
+  ],
+  quiz:[
+    {type:"tf", q:"日常清掃では、土砂やほこりが残った状態のまま湿式モップで水拭きをしてよい。", answer:false, explain:"土砂を残したまま水拭きすると床を傷つける原因になります。先に乾いた汚れを除去してから水拭きを行います。"},
+    {type:"choice", q:"弾性床材の定期清掃で、洗浄・すすぎ・乾燥の後に行う仕上げ作業はどれか。", options:["剥離剤の塗布","ワックスの塗布","酸性洗剤の散布","カーペットシャンプー"], answer:1, explain:"乾燥後にワックスを薄く均一に塗り重ねることで、艶と耐久性のある保護被膜を作ります。"},
+    {type:"tf", q:"古くなったワックス被膜を除去する作業には、一般に剥離剤（強アルカリ性）を用いる。", answer:true, explain:"剥離剤で被膜を軟化させたあと、ポリッシャーと湿式掃除機で汚水ごと除去します。"},
+    {type:"choice", q:"石材床の清掃・剥離作業で避けるべき薬剤はどれか。", options:["中性洗剤","酸性の洗剤・剥離剤","水","中性のワックス"], answer:1, explain:"石材は酸に弱く、酸性の薬剤が付着すると表面が溶けて艶を失う「エッチング」が起こるため避けます。"},
+    {type:"tf", q:"ワックスは一度に厚く塗るほど、美しく耐久性のある被膜になる。", answer:false, explain:"厚塗りはムラや白化の原因になります。薄く均一に複数回重ね塗りするのが基本です。"},
+    {type:"choice", q:"剥離作業の一般的な工程順として正しいものはどれか。", options:["剥離剤塗布→軟化→除去→すすぎ→乾燥","ワックス塗布→剥離剤塗布→乾燥","すすぎ→剥離剤塗布→除去","乾燥→剥離剤塗布→ワックス塗布"], answer:0, explain:"剥離剤を塗布して被膜を軟化させ、機械で除去したのちすすぎ洗いをし、最後に乾燥させます。"}
+  ]
+},
+{
+  id:6,
+  title:"トイレ・衛生設備の清掃",
+  eyebrow:"UNIT 06",
+  sections:[
+    {h:"トイレ汚れの特徴", p:"トイレの汚れは大便器・小便器にできる尿石（アルカリ性の水あか状の汚れ）、水あか（水中のミネラル分の結晶）、床や壁の油脂汚れ・皮脂汚れなど複合的です。尿石や水あかは酸性の洗剤で、油脂・皮脂汚れは中性〜アルカリ性の洗剤で対応するのが基本です。"},
+    {h:"衛生設備清掃の基本手順", p:"トイレ清掃では、まず換気を行い、次に見える汚れの除去、洗剤塗布・放置（浸透時間の確保）、ブラシ等でのこすり洗い、すすぎ、水気の除去という順に進めます。便座・レバー・ドアノブなど手が触れる部分は特に念入りに拭き上げ、除菌を行います。"},
+    {h:"感染防止と衛生管理", p:"トイレは感染症の原因となる細菌・ウイルスが付着しやすい場所であるため、清掃後の消毒・除菌が重要です。用具は他の場所と共用せず、トイレ専用のモップやクロスを使い、作業後は手指の消毒を徹底します。"},
+    {h:"清掃順序の注意点", p:"衛生上、清掃の順序は「きれいな場所から汚れた場所へ」が原則です。洗面台まわりを先に清掃し、大便器・小便器は最後に清掃することで、汚染の拡大を防ぎます。用具も部位ごとに使い分け、便器専用のブラシを他の場所に流用しないようにします。"}
+  ],
+  quiz:[
+    {type:"choice", q:"大便器・小便器にできるアルカリ性の水あか状の汚れを何というか。", options:["油脂汚れ","尿石","カビ汚れ","皮脂汚れ"], answer:1, explain:"尿石はアルカリ性の性質を持つ汚れで、酸性の洗剤を用いて除去するのが基本です。"},
+    {type:"tf", q:"尿石や水あかの除去には、一般に酸性の洗剤が有効である。", answer:true, explain:"尿石・水あかはアルカリ性の汚れであるため、酸性の洗剤で中和・溶解して落とします。"},
+    {type:"choice", q:"衛生管理の観点から、トイレ清掃の順序として正しいものはどれか。", options:["便器→床→洗面台の順","洗面台まわりを先に、便器は最後に清掃する","順序に決まりはない","床を先に、その後すぐ便器"], answer:1, explain:"「きれいな場所から汚れた場所へ」の原則に従い、洗面台を先に、便器を最後に清掃して汚染拡大を防ぎます。"},
+    {type:"tf", q:"トイレ清掃で使うブラシやクロスは、他の場所の清掃用具と共用してもよい。", answer:false, explain:"感染防止のため、トイレ専用の用具を用意し、他の場所と共用しないことが原則です。"},
+    {type:"choice", q:"便座やドアノブなど、手が頻繁に触れる部分に特に必要な処理はどれか。", options:["ワックスがけ","念入りな拭き上げと除菌","乾式モップでの掃き掃除のみ","放置してよい"], answer:1, explain:"接触頻度の高い部分は感染リスクが高いため、念入りな拭き上げと除菌が重要です。"},
+    {type:"tf", q:"洗剤を塗布した直後にすぐこすり洗いをするより、汚れに浸透する時間を少し置いてからこすり洗いをする方が効果的なことが多い。", answer:true, explain:"洗剤が汚れに浸透する時間（放置時間）を確保することで、こすり洗いの負担を減らし効果的に汚れを落とせます。"}
+  ]
+},
+{
+  id:7,
+  title:"安全衛生管理",
+  eyebrow:"UNIT 07",
+  sections:[
+    {h:"清掃作業で起こりやすい労働災害", p:"清掃作業では「転倒」「墜落・転落」「薬剤による化学熱傷や中毒」「機械への巻き込み」などの労働災害が起こりやすいとされます。特に洗浄直後の濡れた床での転倒や、脚立・高所作業時の墜落は発生頻度が高いため、注意喚起の表示や作業手順の徹底が求められます。"},
+    {h:"保護具の使用", p:"薬剤を扱う作業では、ゴム手袋・保護メガネ（ゴーグル）・マスクなどの保護具を着用します。剥離剤など刺激性の強い薬剤を扱う際は、皮膚や眼への飛散・付着を防ぐことが特に重要です。滑りにくい靴を履くことも転倒防止につながります。"},
+    {h:"作業時の表示・区画", p:"床が濡れている間や作業中の区画には、注意表示板（「清掃中」「濡れ床注意」等）を設置し、通行人が誤って進入しないようにします。作業区画をカラーコーンやバーで区切ることも、転倒事故防止のために有効です。"},
+    {h:"ヒヤリハットの考え方", p:"重大な事故には至らなかったものの、「ヒヤリ」としたり「ハッ」とした経験を「ヒヤリハット」といいます。1件の重大事故の背後には多数のヒヤリハットが存在するとされ（ハインリッヒの法則）、日頃から小さな異常や危険の兆候を報告・共有することが、重大事故の未然防止につながります。"}
+  ],
+  quiz:[
+    {type:"tf", q:"清掃作業で最も発生しやすい労働災害のひとつに、濡れた床での転倒がある。", answer:true, explain:"洗浄直後の濡れた床での転倒は、清掃業務における代表的な労働災害のひとつです。"},
+    {type:"choice", q:"剥離剤など刺激性の強い薬剤を扱う際に着用すべき保護具として適切でないものはどれか。", options:["ゴム手袋","保護メガネ（ゴーグル）","マスク","サンダル"], answer:3, explain:"サンダルは滑りやすく足の保護にもならないため不適切です。滑りにくい安全な履物を選びます。"},
+    {type:"choice", q:"床が濡れている作業中に通行人の進入を防ぐために設置するものはどれか。", options:["ワックス缶","注意表示板やカラーコーン","洗剤ボトル","モップだけ"], answer:1, explain:"「濡れ床注意」等の表示板やカラーコーンで区画し、通行人の転倒事故を防ぎます。"},
+    {type:"tf", q:"重大事故の背後には多数の「ヒヤリハット」が存在するという考え方をハインリッヒの法則という。", answer:true, explain:"1件の重大事故の背景には29件の軽微な事故、300件のヒヤリハットが存在するとされる経験則です。日頃の小さな異常の共有が事故防止につながります。"},
+    {type:"tf", q:"ヒヤリハットは実際の事故につながっていないため、報告や共有をする必要はない。", answer:false, explain:"ヒヤリハットは重大事故の予兆であり、報告・共有することで重大事故を未然に防ぐことができます。"},
+    {type:"choice", q:"脚立を使用した高所での清掃作業で特に注意すべき労働災害はどれか。", options:["感電","墜落・転落","凍傷","騒音障害"], answer:1, explain:"高所作業では墜落・転落のリスクが高く、脚立の安定確認や補助者の配置などの対策が必要です。"}
+  ]
+},
+{
+  id:8,
+  title:"関連法規と技能検定制度の基礎",
+  eyebrow:"UNIT 08",
+  sections:[
+    {h:"建築物衛生法の位置づけ", p:"正式名称を「建築物における衛生的環境の確保に関する法律」といい、一定規模以上の多数の人が利用する建築物（特定建築物）について、空気環境・給排水・清掃・ねずみや害虫の防除など、衛生的な環境を維持するための基準を定めた法律です。ビルクリーニングはこの法律が求める衛生水準を実現する重要な業務のひとつに位置づけられます。"},
+    {h:"清掃作業監督者", p:"建築物衛生法に基づく事業登録（ビルクリーニング業）を行うためには、一定の資格・実務経験を持つ「清掃作業監督者」を選任することが人的要件のひとつとされています。1級ビルクリーニング技能士は、この清掃作業監督者になるための資格要件のひとつとして位置づけられています。"},
+    {h:"技能検定制度とビルクリーニング技能士", p:"技能検定は、職業能力開発促進法に基づき国が実施する国家検定制度で、働く人の技能を一定の基準で評価し、合格者には「技能士」の称号が与えられます。ビルクリーニング職種では1級・2級・3級・基礎級に分かれており、2級は「中級技能者が通常有すべき技能及び知識」を評価する等級とされています。"},
+    {h:"等級ごとの位置づけ", p:"3級は初級技能者、2級は中級技能者、1級は上級技能者が通常有すべき技能・知識を評価する等級です。技能士の称号は資格を持つ者だけが名乗ることができ、資格のない者が「ビルクリーニング技能士」を名乗ることは法律で禁止されています。"}
+  ],
+  quiz:[
+    {type:"choice", q:"「建築物における衛生的環境の確保に関する法律」の通称は何か。", options:["建築基準法","建築物衛生法","労働安全衛生法","消防法"], answer:1, explain:"通称は建築物衛生法（ビル管法）で、多数の人が利用する特定建築物の衛生環境維持について定めています。"},
+    {type:"tf", q:"技能検定は都道府県や民間団体が独自に実施する任意の資格制度である。", answer:false, explain:"技能検定は職業能力開発促進法に基づき国が実施する国家検定制度です。任意の民間資格ではありません。"},
+    {type:"choice", q:"ビルクリーニング技能検定において、2級はどのレベルの技能者を対象としているか。", options:["初級技能者","中級技能者","上級技能者","指導者級"], answer:1, explain:"3級が初級、2級が中級、1級が上級技能者が通常有すべき技能・知識を評価する等級です。"},
+    {type:"tf", q:"資格を持たない者が「ビルクリーニング技能士」を名乗ることは法律上禁止されている。", answer:true, explain:"職業能力開発促進法により、技能検定に合格していない者が技能士の名称を用いることは禁止されています。"},
+    {type:"choice", q:"建築物衛生法に基づく事業登録に必要な人的要件のひとつとして選任される役職を何というか。", options:["現場代理人","清掃作業監督者","衛生管理者","建築物管理士"], answer:1, explain:"清掃作業監督者は、ビルクリーニング業の事業登録に必要な人的要件のひとつです。"},
+    {type:"tf", q:"1級ビルクリーニング技能士は、清掃作業監督者になるための資格要件のひとつとして位置づけられている。", answer:true, explain:"1級ビルクリーニング技能士は、建築物衛生法上の清掃作業監督者になるための要件のひとつです。"}
+  ]
+}
+];
+
+const PASS_RATE = 0.65; // 実際の学科試験の合格基準（65%以上）に合わせる
+
+/* ============================================================
+   永続化（window.storage）
+   ============================================================ */
+const STORE_KEY = "billcleaning_progress_v1";
+let progress = {}; // { [unitId]: {read:bool, bestScore, bestTotal} }
+
+async function loadProgress(){
+  try{
+    const res = await window.storage.get(STORE_KEY, false);
+    if(res && res.value){ progress = JSON.parse(res.value); }
+  }catch(e){ progress = {}; }
+}
+async function saveProgress(){
+  try{ await window.storage.set(STORE_KEY, JSON.stringify(progress), false); }
+  catch(e){ /* ignore */ }
+}
+function getUnitProgress(id){
+  return progress[id] || {read:false, bestScore:0, bestTotal:0};
+}
+function setUnitRead(id){
+  progress[id] = Object.assign({read:false,bestScore:0,bestTotal:0}, progress[id], {read:true});
+  saveProgress();
+}
+function setUnitScore(id, score, total){
+  const cur = Object.assign({read:false,bestScore:0,bestTotal:0}, progress[id]);
+  if(score > cur.bestScore || cur.bestTotal===0){
+    cur.bestScore = score; cur.bestTotal = total;
+  }
+  cur.read = true;
+  progress[id] = cur;
+  saveProgress();
+}
+
+/* ============================================================
+   音声読み上げ（Web Speech API）
+   ============================================================ */
+const TTS = {
+  utter:null, playing:false, paused:false, rate:1,
+  voice:null,
+  pickVoice(){
+    const voices = speechSynthesis.getVoices();
+    this.voice = voices.find(v=>v.lang==="ja-JP") || voices.find(v=>v.lang && v.lang.startsWith("ja")) || null;
+  },
+  speak(text, onend){
+    this.stop();
+    this.pickVoice();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "ja-JP";
+    if(this.voice) u.voice = this.voice;
+    u.rate = this.rate;
+    u.onend = ()=>{ this.playing=false; this.paused=false; if(onend) onend(); };
+    u.onerror = ()=>{ this.playing=false; this.paused=false; if(onend) onend(); };
+    this.utter = u;
+    speechSynthesis.speak(u);
+    this.playing = true; this.paused = false;
+  },
+  pause(){ if(this.playing && !this.paused){ speechSynthesis.pause(); this.paused=true; } },
+  resume(){ if(this.playing && this.paused){ speechSynthesis.resume(); this.paused=false; } },
+  stop(){ speechSynthesis.cancel(); this.playing=false; this.paused=false; }
+};
+if(typeof speechSynthesis!=="undefined"){
+  speechSynthesis.onvoiceschanged = ()=> TTS.pickVoice();
+}
+
+/* ============================================================
+   ルーター / 状態
+   ============================================================ */
+let route = {screen:"home"}; // {screen:'home'} | {screen:'unit', id, tab} | quiz state nested
+let quizState = null; // {unitId, idx, score, answered, selected, order}
+
+const app = document.getElementById("app");
+
+function render(){
+  TTS.stop();
+  if(route.screen === "home") renderHome();
+  else if(route.screen === "unit") renderUnit();
+  window.scrollTo(0,0);
+}
+
+/* ---------- HOME ---------- */
+function renderHome(){
+  const doneCount = UNITS.filter(u=>getUnitProgress(u.id).read).length;
+  const pct = Math.round((doneCount/UNITS.length)*100);
+
+  app.innerHTML = `
+    <div class="topbar home-header">
+      <div class="badge-code">7403・ビルクリーニング職種</div>
+      <h1>ビルクリーニング技能士<br>2級 学科試験対策</h1>
+      <p>単元ごとに「教科書を読む → 問題を解く」の順で学習を進めましょう。教科書は音声読み上げにも対応しています。</p>
+      <div class="progress-wrap" style="padding:16px 0 0;">
+        <div class="progress-card">
+          <div class="progress-top">
+            <span><span class="num">${doneCount}</span><span class="lbl"> / ${UNITS.length} 単元 完了</span></span>
+            <span class="lbl">${pct}%</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="unit-list" id="unitList"></div>
+    <div class="footnote">学科試験は真偽法25問・択一法25問（100点満点）、65%以上の正答で合格ラインです。まずは各単元の教科書を読み、理解度を問題で確認しましょう。</div>
+  `;
+
+  const list = document.getElementById("unitList");
+  UNITS.forEach(u=>{
+    const p = getUnitProgress(u.id);
+    const hasScore = p.bestTotal > 0;
+    const pass = hasScore && (p.bestScore/p.bestTotal) >= PASS_RATE;
+    const card = document.createElement("div");
+    card.className = "unit-card" + (p.read ? " done" : "");
+    card.innerHTML = `
+      <div class="unit-num">${String(u.id).padStart(2,"0")}</div>
+      <div class="unit-body">
+        <p class="unit-title">${u.title}</p>
+        <div class="unit-meta">
+          <span class="tag read ${p.read?"on":""}">${p.read? "教科書 既読" : "教科書 未読"}</span>
+          <span class="tag score ${hasScore ? (pass?"pass":"") : "na"}">${hasScore ? `問題 ${p.bestScore}/${p.bestTotal}${pass? "・合格圏":""}` : "問題 未受験"}</span>
+        </div>
+      </div>
+      <div class="chev">›</div>
+    `;
+    card.onclick = ()=>{ route = {screen:"unit", id:u.id, tab:"read"}; render(); };
+    list.appendChild(card);
+  });
+}
+
+/* ---------- UNIT (教科書 / 問題) ---------- */
+function renderUnit(){
+  const unit = UNITS.find(u=>u.id===route.id);
+  app.innerHTML = `
+    <div class="topbar">
+      <div class="topbar-row">
+        <button class="backbtn" id="backBtn">‹</button>
+        <div>
+          <span class="eyebrow">${unit.eyebrow}</span>
+          <h1>${unit.title}</h1>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="tab ${route.tab==="read"?"active":""}" id="tabRead">教科書</button>
+        <button class="tab ${route.tab==="quiz"?"active":""}" id="tabQuiz">問題を解く</button>
+      </div>
+    </div>
+    <div class="content-pane" id="pane"></div>
+  `;
+  document.getElementById("backBtn").onclick = ()=>{ route = {screen:"home"}; render(); };
+  document.getElementById("tabRead").onclick = ()=>{ route.tab="read"; quizState=null; render(); };
+  document.getElementById("tabQuiz").onclick = ()=>{ route.tab="quiz"; startQuiz(unit); render(); };
+
+  const pane = document.getElementById("pane");
+  if(route.tab === "read"){ pane.innerHTML = readPaneHTML(unit); wireReadPane(unit); }
+  else { pane.innerHTML = quizPaneHTML(unit); wireQuizPane(unit); }
+}
+
+function readPaneHTML(unit){
+  const p = getUnitProgress(unit.id);
+  return `
+    <div class="tts-bar">
+      <div class="tts-row1">
+        <button class="tts-playbtn" id="ttsPlay">▶</button>
+        <div class="tts-info">
+          <div class="tts-label" id="ttsLabel">音声で読み上げる</div>
+          <div class="tts-sub">イヤホンで聴きながら暗記できます</div>
+        </div>
+        <button class="tts-stop" id="ttsStop">■</button>
+      </div>
+      <div class="rate-row">
+        <button class="rate-btn" data-rate="0.75">0.75×</button>
+        <button class="rate-btn active" data-rate="1">1.0×</button>
+        <button class="rate-btn" data-rate="1.25">1.25×</button>
+        <button class="rate-btn" data-rate="1.5">1.5×</button>
+      </div>
+    </div>
+    <div class="textbook" id="textbook">
+      <h2>${unit.title}</h2>
+      ${unit.sections.map((s,i)=>`<div class="section-label">${s.h}</div><p class="reading-p" data-idx="${i}">${s.p}</p>`).join("")}
+    </div>
+    <button class="mark-read-btn ${p.read?"done":""}" id="markReadBtn">${p.read? "✓ 読了しました" : "読み終えたらタップ"}</button>
+  `;
+}
+
+function wireReadPane(unit){
+  const playBtn = document.getElementById("ttsPlay");
+  const stopBtn = document.getElementById("ttsStop");
+  const label = document.getElementById("ttsLabel");
+  const paras = Array.from(document.querySelectorAll("#textbook .reading-p"));
+
+  function clearHighlight(){ paras.forEach(p=>p.classList.remove("active")); }
+
+  function speakFrom(idx){
+    if(idx >= unit.sections.length){
+      TTS.stop(); playBtn.textContent="▶"; playBtn.classList.remove("playing");
+      label.textContent = "音声で読み上げる"; clearHighlight();
+      return;
+    }
+    clearHighlight();
+    paras[idx].classList.add("active");
+    paras[idx].scrollIntoView({behavior:"smooth", block:"center"});
+    label.textContent = unit.sections[idx].h + " を読み上げ中";
+    TTS.speak(unit.sections[idx].p, ()=> speakFrom(idx+1));
+  }
+
+  playBtn.onclick = ()=>{
+    if(TTS.playing && !TTS.paused){ TTS.pause(); playBtn.textContent="▶"; playBtn.classList.remove("playing"); label.textContent="一時停止中"; return; }
+    if(TTS.playing && TTS.paused){ TTS.resume(); playBtn.textContent="❚❚"; playBtn.classList.add("playing"); return; }
+    playBtn.textContent="❚❚"; playBtn.classList.add("playing");
+    speakFrom(0);
+  };
+  stopBtn.onclick = ()=>{
+    TTS.stop(); playBtn.textContent="▶"; playBtn.classList.remove("playing");
+    label.textContent="音声で読み上げる"; clearHighlight();
+  };
+  document.querySelectorAll(".rate-btn").forEach(btn=>{
+    btn.onclick = ()=>{
+      document.querySelectorAll(".rate-btn").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      TTS.rate = parseFloat(btn.dataset.rate);
+      if(TTS.playing){ const wasIdx = paras.findIndex(p=>p.classList.contains("active")); TTS.stop(); speakFrom(wasIdx<0?0:wasIdx); }
+    };
+  });
+
+  document.getElementById("markReadBtn").onclick = (e)=>{
+    setUnitRead(unit.id);
+    e.target.textContent = "✓ 読了しました";
+    e.target.classList.add("done");
+  };
+}
+
+/* ---------- QUIZ ---------- */
+function startQuiz(unit){
+  quizState = {unitId:unit.id, idx:0, score:0, answered:false, selected:null, results:[]};
+}
+
+function quizPaneHTML(unit){
+  if(!quizState || quizState.unitId !== unit.id) startQuiz(unit);
+  if(quizState.idx >= unit.quiz.length){
+    return resultHTML(unit);
+  }
+  const q = unit.quiz[quizState.idx];
+  const dots = unit.quiz.map((_,i)=>{
+    let cls = "qdot";
+    if(i < quizState.results.length) cls += quizState.results[i] ? " ok" : " ng";
+    else if(i === quizState.idx) cls += " cur";
+    return `<span class="${cls}"></span>`;
+  }).join("");
+
+  let optsHTML = "";
+  if(q.type === "tf"){
+    optsHTML = `<div class="tf-row">
+      <button class="opt" data-val="true">○ 正しい</button>
+      <button class="opt" data-val="false">✕ 誤り</button>
+    </div>`;
+  }else{
+    optsHTML = `<div class="opts">${q.options.map((o,i)=>`<button class="opt" data-val="${i}">${o}</button>`).join("")}</div>`;
+  }
+
+  return `
+    <div class="quiz-progress">
+      <span class="qnum">問 ${quizState.idx+1} / ${unit.quiz.length}</span>
+      <div class="quiz-dots">${dots}</div>
+    </div>
+    <div class="qcard">
+      <div class="qtype">${q.type==="tf" ? "真偽法" : "択一法"}</div>
+      <p class="qtext">${q.q}</p>
+      ${optsHTML}
+      <div id="explainSlot"></div>
+    </div>
+    <button class="next-btn" id="nextBtn" disabled>回答して次へ進む</button>
+  `;
+}
+
+function wireQuizPane(unit){
+  if(quizState.idx >= unit.quiz.length){ wireResult(unit); return; }
+  const q = unit.quiz[quizState.idx];
+  const optButtons = Array.from(document.querySelectorAll(".opt"));
+  const nextBtn = document.getElementById("nextBtn");
+  const explainSlot = document.getElementById("explainSlot");
+
+  optButtons.forEach(btn=>{
+    btn.onclick = ()=>{
+      if(quizState.answered) return;
+      quizState.answered = true;
+      const val = btn.dataset.val;
+      let isCorrect;
+      if(q.type === "tf"){ isCorrect = (val === String(q.answer)); }
+      else { isCorrect = (parseInt(val,10) === q.answer); }
+
+      optButtons.forEach(b=>{
+        b.disabled = true;
+        const bVal = b.dataset.val;
+        const bIsAnswer = q.type==="tf" ? (bVal===String(q.answer)) : (parseInt(bVal,10)===q.answer);
+        if(bIsAnswer) b.classList.add("correct");
+        else if(b===btn) b.classList.add("wrong");
+        else b.classList.add("dim");
+      });
+
+      explainSlot.innerHTML = `<div class="explain ${isCorrect?"ok":"ng"}">${isCorrect? "正解です。" : "不正解です。"} ${q.explain}</div>`;
+      if(isCorrect) quizState.score++;
+      quizState.results.push(isCorrect);
+      nextBtn.disabled = false;
+      nextBtn.textContent = (quizState.idx === unit.quiz.length-1) ? "結果を見る" : "次の問題へ";
+    };
+  });
+
+  nextBtn.onclick = ()=>{
+    quizState.idx++;
+    quizState.answered = false;
+    if(quizState.idx >= unit.quiz.length){
+      setUnitScore(unit.id, quizState.score, unit.quiz.length);
+    }
+    const pane = document.getElementById("pane");
+    pane.innerHTML = quizPaneHTML(unit);
+    wireQuizPane(unit);
+  };
+}
+
+function resultHTML(unit){
+  const total = unit.quiz.length;
+  const score = quizState.score;
+  const pass = (score/total) >= PASS_RATE;
+  return `
+    <div class="result-wrap">
+      <div class="stamp ${pass?"":"fail"}">
+        <div class="big">${pass? "合格圏" : "再挑戦"}</div>
+        <div class="small">${unit.title}</div>
+      </div>
+      <p class="result-score">${score} / ${total} 問正解</p>
+      <p class="result-sub">${pass ? "学科合格ライン（65%）を超えています。この調子で次の単元へ！" : "学科合格ライン（65%）まであと一歩。教科書を読み直してもう一度挑戦しましょう。"}</p>
+      <div class="result-btns">
+        <button class="btn-primary" id="retryBtn">もう一度解く</button>
+        <button class="btn-secondary" id="backReadBtn">教科書を読み直す</button>
+        <button class="btn-secondary" id="backHomeBtn">単元一覧へ戻る</button>
+      </div>
+    </div>
+  `;
+}
+
+function wireResult(unit){
+  document.getElementById("retryBtn").onclick = ()=>{ startQuiz(unit); const pane=document.getElementById("pane"); pane.innerHTML=quizPaneHTML(unit); wireQuizPane(unit); };
+  document.getElementById("backReadBtn").onclick = ()=>{ route.tab="read"; quizState=null; render(); };
+  document.getElementById("backHomeBtn").onclick = ()=>{ route={screen:"home"}; render(); };
+}
+
+/* ---------- 起動 ---------- */
+(async function init(){
+  await loadProgress();
+  render();
+})();
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load", ()=>{
+    navigator.serviceWorker.register("sw.js").catch(()=>{ /* オフライン対応は任意機能のため失敗しても無視 */ });
+  });
+}
+</script>
+</body>
+</html>
